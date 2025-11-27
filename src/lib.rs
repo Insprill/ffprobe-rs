@@ -188,7 +188,7 @@ pub struct Stream {
     /// setting was enabled.
     pub nb_read_frames: Option<String>,
     pub codec_long_name: Option<String>,
-    pub codec_type: Option<String>,
+    pub codec_type: Option<MediaType>,
     pub codec_time_base: Option<String>,
     pub codec_tag_string: String,
     pub codec_tag: String,
@@ -281,6 +281,19 @@ pub struct Format {
     pub bit_rate: Option<String>,
     pub probe_score: i64,
     pub tags: Option<FormatTags>,
+}
+
+// https://ffmpeg.org/doxygen/trunk/group__lavu__misc.html#ga9a84bba4713dfced21a1a56163be1f48
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum MediaType {
+    Unknown,
+    Video,
+    Audio,
+    Data,
+    Subtitle,
+    Attachment,
+    Nb
 }
 
 impl Format {
